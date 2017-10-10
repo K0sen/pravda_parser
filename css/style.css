@@ -1,0 +1,114 @@
+html, body {
+	min-width: 600px;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+em {
+    font-size: 11px;
+    padding: 5px;
+    margin-right: 5px;
+    text-transform: uppercase;
+    color: #222;
+    background: #f0f0f0;
+}
+
+.but  {
+	height: 42px;
+	background-color: white;
+	font-size: 20px;
+}
+
+.header {
+	width: 100%;
+	text-align: center;
+	background-color: #d20b0b;
+	height: 150px;
+}
+
+.title {
+	padding-top: 30px;
+	font-size: 42px;
+	color: white;
+	text-shadow: black 3px 3px 3px;
+}
+
+.search {
+	margin-top: 20px;
+}
+
+.amount_field {
+	height: 30px;
+	border: 5px solid #6f0606; 
+	border-style: double;
+	border-right: none; 
+	font-size: 20px;
+}
+
+.redirect_but {
+	border: 5px solid #6f0606; 
+	border-style: double;
+	border-left: none;
+}
+
+.pravda {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.pravda__text {
+	font-size: 20px;
+	font-family: sans;
+}
+
+.preloader {
+	text-align: center;
+}
+
+.news {
+	display: none;
+}
+
+.clear {
+	text-align: center;
+	margin: 10px;
+}
+
+.table {
+    border: 1px solid #ddd; 
+    margin: 15px;
+}
+
+.table > thead {
+	background-color: grey;
+}
+
+.table > tbody > tr > td {
+	border: 1px solid #ddd;
+	padding: 5px;
+    vertical-align: top;	
+}
+
+.article__title:hover > a {
+	color: #900022;
+} 
+
+.article_bold .article__title > a {
+	font-weight: bold;
+}
+
+.article_red .article__title > a {
+	color: #900022;
+	font-weight: bold;
+}
+
+.article_red .article__time {
+	color: #900022;
+}
+
+.save_database {
+	text-align: center;
+}
