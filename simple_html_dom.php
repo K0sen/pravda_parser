@@ -1666,7 +1666,8 @@ class simple_html_dom
                 $text = substr($text, 0, $pos).'NO NUMERIC NOISE KEY' . substr($text, $pos+11);
             }
         }
-        return $text;
+        //return $text; //TODO http://www.sql.ru/forum/actualutils.aspx?action=gotomsg&tid=1060167&msg=16270402
+        return $this->nodes[0]->convert_text($text); 
     }
 
     // Sometimes we NEED one of the noise elements.

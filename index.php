@@ -13,41 +13,48 @@
 <div class="header">
 	<div class="title">Pravda Search</div>
 	<div class="search">
-		<input type="text" class="amount_field" placeholder="Amount of news">
-		<button class="redirect_but but">GO!</button>
-	</div>
+		<form method="get" class="search__form">
+			<input type="text" name="pages" class="amount_field" placeholder="Amount of news">
+			<button class="redirect_but but">GO!</button>
+		</form>
+	</div> 
 </div>
 
+<!-- 
+Simple parser of news site "www.pravda.com.ua". To start search user have to 
+enter amount of news. Then we do the parsing of news site and display news.
+If in url no get param "pages" with positive number we show hust a start page
+-->
+
 <?php if (!isset($_GET['pages']) || intval($_GET['pages']) <= 0) : ?>
+
 <div class="pravda">
 	<div class="pravda__text">Чтобы начать поиск новостей введите количество и нажмите GO!</div>
 	<img src="img/pravda-man.jpg" alt="pravda-man">
 </div>
-<?php endif; ?>
 
-<?php 
+<?php else :
 
 include "simple_html_dom.php";
 include "NewsClass.php";
 
 $html = file_get_html('http://www.pravda.com.ua/rus/news/');
 $main = $html->find('div[class=news_all]')[0];
-$amount = isset($_GET['pages']) ? $_GET['pages'] : 0;
-$n = 1;
-$news = [];
+$amount = isset($_GET['pages']) ? $_GET['pages'] : 0;		// amount of news
+$counter = 1;
+$news = [];													// array that storage all news with $count amount
 foreach ($main->children as $key => $value) {
-	$class = new NewsClass();
-	$class->create_news($value, $n);
+	$class = new NewsClass($value, $counter);
 	$news[] = $class;
-	if($n >= $amount)
+	if($counter >= $amount)
 		break;
-	$n++;
+	$counter++;
 }
 $html->clear(); 
 unset($html);
+
 ?>
 
-<?php if (isset($_GET['pages']) && intval($_GET['pages']) > 0) : ?>
 <div class="preloader">
 	<img src="img/preload.gif" alt="preloader">
 </div>
@@ -67,20 +74,29 @@ unset($html);
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($news as $key => $news) : ?>
-				<tr class="<?= $news->class ?>">
-					<td><?= $news->n; ?></td>
-					<td><?= $news->parse_t; ?></td>
-					<td><?= $news->time; ?></td>
-					<td><?= $news->title; ?></td>
-					<td><?= $news->subtitle; ?></td>
+			<?php foreach ($news as $key => $one_news) : ?>
+				<tr class="<?= $one_news->class ?>">
+					<td>
+						<div class="article__number"><?= $one_news->n; ?></div>
+					</td>
+					<td>
+						<div class="artucle__parse_t"><?= $one_news->parse_t; ?></div>
+					</td>
+					<td>
+						<div class="article__time"><?= $one_news->time; ?></div>
+					</td>
+					<td>
+						<div class="article__title">
+							<a href="<?= $one_news->href; ?>" target="_blank"><?= $one_news->title; ?></a>
+						</div>
+					</td>
+					<td>
+						<div class="article__subtitle"><?= $one_news->subtitle; ?></div>
+					</td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<div class="save_database">
-		<button class="save_but but">Save to Database</button>
-	</div>
 </div>
 
 <?php endif; ?>

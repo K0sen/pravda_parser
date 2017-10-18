@@ -15,18 +15,13 @@ window.onload = function(){
 		};
 	}
 
-	if (document.querySelector('.save_but')) {
-		document.querySelector('.save_but').onclick = function() {
-			alert("Have not done it yet :'(");
-		};
-	}
-
-	document.querySelector('.redirect_but').onclick = function() {
-		var pages = document.querySelector('.amount_field').value;
+	document.querySelector('.search__form').addEventListener("submit", function(e){
+		e.preventDefault();
+		var pages = this.querySelector('.amount_field').value;
 		if (pages >= 1)
 			window.location = "/?pages=" + pages;
 		else 
 			alert ("wrong number");
-	};
+	});
 
 };
